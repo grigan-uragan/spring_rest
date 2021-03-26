@@ -39,4 +39,14 @@ public class MyController {
         service.saveEmployee(employee);
         return employee;
     }
+    @DeleteMapping("employees/{id}")
+    public String deleteEmployee(@PathVariable int id) {
+        Employee employeeById = service.getEmployeeById(id);
+        if (employeeById == null) {
+            throw new NoSuchEmployeeException("There is no employee with id = "
+                    + id + " in database");
+        }
+        service.deleteEmployee(id);
+        return "employee with id = " + id + " was deleted";
+    }
 }
