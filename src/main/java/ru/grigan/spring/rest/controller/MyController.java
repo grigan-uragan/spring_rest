@@ -28,8 +28,14 @@ public class MyController {
         return employeeById;
     }
 
-    @PostMapping("/employee")
+    @PostMapping("/employees")
     public Employee saveEmployee(@RequestBody Employee employee) {
+        service.saveEmployee(employee);
+        return employee;
+    }
+
+    @PutMapping("/employees")
+    public Employee updateEmployee(@RequestBody Employee employee) {
         service.saveEmployee(employee);
         return employee;
     }
