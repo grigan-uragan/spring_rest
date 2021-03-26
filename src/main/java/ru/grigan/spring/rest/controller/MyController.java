@@ -1,11 +1,11 @@
 package ru.grigan.spring.rest.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import ru.grigan.spring.rest.entity.Employee;
-import ru.grigan.spring.rest.exception_handling.EmployeeIncorrectData;
 import ru.grigan.spring.rest.exception_handling.NoSuchEmployeeException;
 import ru.grigan.spring.rest.service.EmployeeService;
 
@@ -29,20 +29,5 @@ public class MyController {
                     + id + " in database");
         }
         return employeeById;
-    }
-
-    @ExceptionHandler
-    public ResponseEntity<EmployeeIncorrectData> handleException(
-            NoSuchEmployeeException exception) {
-        EmployeeIncorrectData incorrectData = new EmployeeIncorrectData();
-        incorrectData.setInfo(exception.getMessage());
-        return new ResponseEntity<>(incorrectData, HttpStatus.NOT_FOUND);
-    }
-
-    @ExceptionHandler
-    public ResponseEntity<EmployeeIncorrectData> handleException(Exception ex) {
-        EmployeeIncorrectData data = new EmployeeIncorrectData();
-        data.setInfo(ex.getMessage());
-        return new ResponseEntity<>(data, HttpStatus.BAD_REQUEST);
     }
 }
